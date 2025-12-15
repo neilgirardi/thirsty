@@ -8,7 +8,7 @@ import {
   CHART_COLORS,
   parseIngredients,
   parseMeasureToNumber
-} from '../../utils/drinks'
+} from 'utils/drinks'
 
 export default function DrinkDetailPage() {
   const router = useRouter()
@@ -105,7 +105,7 @@ export default function DrinkDetailPage() {
             <div className="ingredients-row">
               <ul className="ingredient-list">
                 {ingredients.map((ing, index) => (
-                  <li key={index} className="ingredient-item">
+                  <li key={ing.name} className="ingredient-item">
                     <span
                       className="ingredient-color"
                       style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }}
@@ -133,8 +133,8 @@ export default function DrinkDetailPage() {
                       outerRadius={70}
                       innerRadius={0}
                     >
-                      {ingredients.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                      {ingredients.map((ing, index) => (
+                        <Cell key={ing.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                       ))}
                     </Pie>
                   </PieChart>
