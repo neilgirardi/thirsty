@@ -1,5 +1,5 @@
 {
-  "name": "cocktail",
+  "name": "thirsty",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "next": "16.0.10",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "recharts": "^2.15.0",
     "typescript": "5.9.3"
   }
 }
