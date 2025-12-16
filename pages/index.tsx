@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
+import { SearchBox } from 'components/SearchBox'
+import { DrinkListItem } from 'components/DrinkListItem'
 
 interface Drink {
   idDrink: string
@@ -69,30 +70,11 @@ export default function Home() {
           <h1>Thirsty</h1>
         </header>
 
-        <div className="search-wrapper">
-          <div className="search-box">
-            <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8" />
-              <path d="M21 21l-4.35-4.35" />
-            </svg>
-            <input
-              type="text"
-              className="search-field"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              autoFocus
-            />
-            {searchTerm && (
-              <button className="clear-btn" onClick={clearSearch}>
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="12" cy="12" r="10" fill="#c7c7c7" />
-                  <path d="M15 9l-6 6M9 9l6 6" stroke="white" strokeWidth="2" />
-                </svg>
-              </button>
-            )}
-          </div>
-        </div>
+        <SearchBox
+          value={searchTerm}
+          onChange={setSearchTerm}
+          onClear={clearSearch}
+        />
 
         <main className="main-content">
           {loading && (
@@ -114,16 +96,12 @@ export default function Home() {
           {!loading && drinks.length > 0 && (
             <ul className="drink-list">
               {drinks.map((drink) => (
-                <li key={drink.idDrink}>
-                  <Link href={`/drink/${drink.idDrink}`} className="drink-row">
-                    <img
-                      src={drink.strDrinkThumb}
-                      alt={drink.strDrink}
-                      className="drink-thumb"
-                    />
-                    <span className="drink-name">{drink.strDrink}</span>
-                  </Link>
-                </li>
+                <DrinkListItem
+                  key={drink.idDrink}
+                  id={drink.idDrink}
+                  name={drink.strDrink}
+                  thumbnail={drink.strDrinkThumb}
+                />
               ))}
             </ul>
           )}

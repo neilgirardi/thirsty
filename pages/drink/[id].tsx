@@ -2,13 +2,8 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
-import {
-  DrinkDetail,
-  CHART_COLORS,
-  parseIngredients,
-  parseMeasureToNumber
-} from 'utils/drinks'
+import { IngredientList } from 'components/IngredientList'
+import { DrinkDetail, parseIngredients } from 'utils/drinks'
 
 export default function DrinkDetailPage() {
   const router = useRouter()
@@ -102,45 +97,7 @@ export default function DrinkDetailPage() {
 
           <section className="detail-section">
             <h2 className="detail-section-title">Ingredients:</h2>
-            <div className="ingredients-row">
-              <ul className="ingredient-list">
-                {ingredients.map((ing, index) => (
-                  <li key={ing.name} className="ingredient-item">
-                    <span
-                      className="ingredient-color"
-                      style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }}
-                    ></span>
-                    <span className="ingredient-text">
-                      {ing.name}
-                      {ing.measure && <span className="ingredient-measure"> ({ing.measure})</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="ingredient-chart">
-                <ResponsiveContainer width="100%" height={160}>
-                  <PieChart>
-                    <Pie
-                      data={ingredients.map((ing, index) => ({
-                        name: ing.name,
-                        value: parseMeasureToNumber(ing.measure),
-                        color: CHART_COLORS[index % CHART_COLORS.length]
-                      }))}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={70}
-                      innerRadius={0}
-                    >
-                      {ingredients.map((ing, index) => (
-                        <Cell key={ing.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
+            <IngredientList ingredients={ingredients} />
           </section>
 
           <section className="detail-section">

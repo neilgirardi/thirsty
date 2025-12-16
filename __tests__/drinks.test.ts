@@ -3,7 +3,7 @@ import {
   parseMeasureToNumber,
   DrinkDetail,
   CHART_COLORS
-} from '../utils/drinks'
+} from 'utils/drinks'
 
 describe('parseMeasureToNumber', () => {
   it('returns 1 for empty string', () => {
