@@ -23,4 +23,12 @@
 .name {
   font-size: 17px;
   color: var(--text);
+  flex: 1;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  color: #c7c7cc;
+  flex-shrink: 0;
 }
