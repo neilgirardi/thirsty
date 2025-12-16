@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Head from 'next/head'
 import { SearchBox } from 'components/SearchBox'
 import { DrinkListItem } from 'components/DrinkListItem'
+import styles from 'styles/Home.module.css'
 
 interface Drink {
   idDrink: string
@@ -65,9 +66,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="main-page">
-        <header className="main-header">
-          <h1>Thirsty</h1>
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Thirsty</h1>
         </header>
 
         <SearchBox
@@ -76,19 +77,19 @@ export default function Home() {
           onClear={clearSearch}
         />
 
-        <main className="main-content">
+        <main className={styles.content}>
           {loading && (
-            <div className="main-loading">Searching...</div>
+            <div className={styles.loading}>Searching...</div>
           )}
 
           {!loading && hasSearched && drinks.length === 0 && (
-            <div className="main-empty">
+            <div className={styles.empty}>
               <p>No drinks found</p>
             </div>
           )}
 
           {!loading && drinks.length > 0 && (
-            <ul className="drink-list">
+            <ul className={styles.list}>
               {drinks.map((drink) => (
                 <DrinkListItem
                   key={drink.idDrink}

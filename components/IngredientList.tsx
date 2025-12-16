@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { Ingredient, CHART_COLORS, parseMeasureToNumber } from 'utils/drinks'
+import styles from './IngredientList.module.css'
 
 interface IngredientListProps {
   ingredients: Ingredient[]
@@ -8,23 +9,23 @@ interface IngredientListProps {
 
 export function IngredientList({ ingredients, showChart = true }: IngredientListProps) {
   return (
-    <div className="ingredients-row">
-      <ul className="ingredient-list">
+    <div className={styles.row}>
+      <ul className={styles.list}>
         {ingredients.map((ing, index) => (
-          <li key={ing.name} className="ingredient-item">
+          <li key={ing.name} className={styles.item}>
             <span
-              className="ingredient-color"
+              className={styles.color}
               style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }}
             ></span>
-            <span className="ingredient-text">
+            <span className={styles.text}>
               {ing.name}
-              {ing.measure && <span className="ingredient-measure"> ({ing.measure})</span>}
+              {ing.measure && <span className={styles.measure}> ({ing.measure})</span>}
             </span>
           </li>
         ))}
       </ul>
       {showChart && (
-        <div className="ingredient-chart">
+        <div className={styles.chart}>
           <ResponsiveContainer width="100%" height={160}>
             <PieChart>
               <Pie

@@ -1,0 +1,90 @@
+.page {
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.back {
+  color: #007AFF;
+  font-size: 1rem;
+  font-weight: 400;
+  min-width: 80px;
+}
+
+.back:hover {
+  opacity: 0.7;
+}
+
+.headerTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  flex: 1;
+}
+
+.spacer {
+  min-width: 80px;
+}
+
+.content {
+  padding: 30px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 32px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.instructions {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-light);
+}

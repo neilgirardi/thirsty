@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { IngredientList } from 'components/IngredientList'
 import { DrinkDetail, parseIngredients } from 'utils/drinks'
+import styles from 'styles/DrinkDetail.module.css'
 
 export default function DrinkDetailPage() {
   const router = useRouter()
@@ -44,23 +45,23 @@ export default function DrinkDetailPage() {
 
   if (loading) {
     return (
-      <div className="detail-page">
-        <div className="detail-loading">Loading...</div>
+      <div className={styles.page}>
+        <div className={styles.loading}>Loading...</div>
       </div>
     )
   }
 
   if (error || !drink) {
     return (
-      <div className="detail-page">
-        <header className="detail-header">
-          <Link href="/" className="detail-back">
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <Link href="/" className={styles.back}>
             &lt; Thirsty
           </Link>
-          <span className="detail-title">Not Found</span>
-          <span className="detail-spacer"></span>
+          <span className={styles.headerTitle}>Not Found</span>
+          <span className={styles.spacer}></span>
         </header>
-        <div className="detail-loading">Drink not found</div>
+        <div className={styles.loading}>Drink not found</div>
       </div>
     )
   }
@@ -75,33 +76,33 @@ export default function DrinkDetailPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="detail-page">
-        <header className="detail-header">
-          <Link href="/" className="detail-back">
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <Link href="/" className={styles.back}>
             &lt; Thirsty
           </Link>
-          <span className="detail-title">{drink.strDrink}</span>
-          <span className="detail-spacer"></span>
+          <span className={styles.headerTitle}>{drink.strDrink}</span>
+          <span className={styles.spacer}></span>
         </header>
 
-        <main className="detail-content">
-          <div className="detail-image-container">
+        <main className={styles.content}>
+          <div className={styles.imageContainer}>
             <img
               src={drink.strDrinkThumb}
               alt={drink.strDrink}
-              className="detail-image"
+              className={styles.image}
             />
           </div>
 
-          <h1 className="detail-name">{drink.strDrink}</h1>
+          <h1 className={styles.name}>{drink.strDrink}</h1>
 
-          <section className="detail-section">
-            <h2 className="detail-section-title">Ingredients:</h2>
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Ingredients:</h2>
             <IngredientList ingredients={ingredients} />
           </section>
 
-          <section className="detail-section">
-            <p className="detail-instructions">{drink.strInstructions}</p>
+          <section className={styles.section}>
+            <p className={styles.instructions}>{drink.strInstructions}</p>
           </section>
         </main>
       </div>

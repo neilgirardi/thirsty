@@ -1,0 +1,26 @@
+.item {
+  border-bottom: 1px solid var(--border);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+}
+
+.row:active {
+  background: #f2f2f7;
+}
+
+.thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1rem;
+  color: var(--text);
+}

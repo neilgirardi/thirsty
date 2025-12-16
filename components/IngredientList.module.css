@@ -1,0 +1,39 @@
+.row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.chart {
+  flex: 0 0 160px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.text {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.measure {
+  color: var(--text-light);
+}

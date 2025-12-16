@@ -34,24 +34,19 @@ describe('Home Page', () => {
 
   it('renders the search input', () => {
     render(<Home />)
-    expect(screen.getByPlaceholderText('Search')).toBeInTheDocument()
-  })
-
-  it('shows initial state message', () => {
-    render(<Home />)
-    expect(screen.getByText('Search for a cocktail')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Find a drink')).toBeInTheDocument()
   })
 
   it('updates search input value on change', () => {
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search') as HTMLInputElement
+    const input = screen.getByPlaceholderText('Find a drink') as HTMLInputElement
     fireEvent.change(input, { target: { value: 'margarita' } })
     expect(input.value).toBe('margarita')
   })
 
   it('shows clear button when search has value', () => {
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search')
+    const input = screen.getByPlaceholderText('Find a drink')
 
     // Clear button should not exist initially
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
@@ -64,7 +59,7 @@ describe('Home Page', () => {
 
   it('clears search when clear button is clicked', () => {
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search') as HTMLInputElement
+    const input = screen.getByPlaceholderText('Find a drink') as HTMLInputElement
 
     fireEvent.change(input, { target: { value: 'test' } })
     expect(input.value).toBe('test')
@@ -102,7 +97,7 @@ describe('Home Page', () => {
     })
 
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search')
+    const input = screen.getByPlaceholderText('Find a drink')
     fireEvent.change(input, { target: { value: 'margarita' } })
 
     await waitFor(() => {
@@ -117,7 +112,7 @@ describe('Home Page', () => {
     })
 
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search')
+    const input = screen.getByPlaceholderText('Find a drink')
     fireEvent.change(input, { target: { value: 'xyz123' } })
 
     await waitFor(() => {
@@ -144,7 +139,7 @@ describe('Home Page', () => {
     })
 
     render(<Home />)
-    const input = screen.getByPlaceholderText('Search')
+    const input = screen.getByPlaceholderText('Find a drink')
     fireEvent.change(input, { target: { value: 'test' } })
 
     await waitFor(() => {

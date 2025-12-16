@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import styles from './DrinkListItem.module.css'
 
 interface DrinkListItemProps {
   id: string
@@ -8,10 +9,10 @@ interface DrinkListItemProps {
 
 export function DrinkListItem({ id, name, thumbnail }: DrinkListItemProps) {
   return (
-    <li>
-      <Link href={`/drink/${id}`} className="drink-row">
-        <img src={thumbnail} alt={name} className="drink-thumb" />
-        <span className="drink-name">{name}</span>
+    <li className={styles.item}>
+      <Link href={`/drink/${id}`} className={styles.row}>
+        <img src={thumbnail} alt={name} className={styles.thumb} />
+        <span className={styles.name}>{name}</span>
       </Link>
     </li>
   )
