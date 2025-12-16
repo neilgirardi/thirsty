@@ -81,12 +81,6 @@ export default function Home() {
             <div className="main-loading">Searching...</div>
           )}
 
-          {!loading && !hasSearched && (
-            <div className="main-empty">
-              <p>Search for a cocktail</p>
-            </div>
-          )}
-
           {!loading && hasSearched && drinks.length === 0 && (
             <div className="main-empty">
               <p>No drinks found</p>
