@@ -26,7 +26,7 @@ export function IngredientList({ ingredients, showChart = true }: IngredientList
       </ul>
       {showChart && (
         <div className={styles.chart}>
-          <ResponsiveContainer width="100%" height={160}>
+          <ResponsiveContainer width="100%" height={120}>
             <PieChart>
               <Pie
                 data={ingredients.map((ing, index) => ({
@@ -38,7 +38,7 @@ export function IngredientList({ ingredients, showChart = true }: IngredientList
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={70}
+                outerRadius={55}
                 innerRadius={0}
               >
                 {ingredients.map((ing, index) => (
