@@ -5,7 +5,7 @@
 .row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 15px;
   padding: 8px 10px;
 }
 
@@ -21,6 +21,6 @@
 }
 
 .name {
-  font-size: 1rem;
+  font-size: 17px;
   color: var(--text);
 }
