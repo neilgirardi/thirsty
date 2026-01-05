@@ -1,13 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import Home from '../pages/index'
-
-// Mock next/head
-jest.mock('next/head', () => {
-  return {
-    __esModule: true,
-    default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  }
-})
+import Home from '../app/page'
 
 // Mock next/link
 jest.mock('next/link', () => {
