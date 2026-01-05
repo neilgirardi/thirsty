@@ -6,6 +6,10 @@ export interface DrinkDetail {
   strAlcoholic: string
   strGlass: string
   strInstructions: string
+  // The cocktail API returns drinks with dynamic properties like:
+  // - strIngredient1, strIngredient2, ... strIngredient15
+  // - strMeasure1, strMeasure2, ... strMeasure15
+  // Rather than explicitly defining all 30+ properties, the index signature says: "this object can have any string key, and its value will be string | null."
   [key: string]: string | null
 }
 
@@ -45,9 +49,15 @@ export function parseMeasureToNumber(measure: string): number {
 
   const fractionMatch = cleaned.match(/(\d+)?\s*(\d+)\/(\d+)/)
   if (fractionMatch) {
+    // (\d+)? - optional whole number (e.g., the "1" in "1 1/2")
     const whole = fractionMatch[1] ? parseInt(fractionMatch[1]) : 0
+
+    // \s* - optional whitespace
+
+    // (\d+)\/(\d+) - numerator/denominator
     const numerator = parseInt(fractionMatch[2])
     const denominator = parseInt(fractionMatch[3])
+
     return whole + (numerator / denominator)
   }
 
