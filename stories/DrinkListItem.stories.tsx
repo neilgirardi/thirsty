@@ -41,7 +41,7 @@ const multipleItemsDecorator: Decorator = () => (
     <DrinkListItem
       id="11007"
       name="Margarita"
-      thumbnail="https://www.thecocktaildb.com/images/media/drink/5noda61702008895.jpg"
+      thumbnail="https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg"
     />
     <DrinkListItem
       id="11118"
