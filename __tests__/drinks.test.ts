@@ -10,56 +10,67 @@ describe('parseMeasureToNumber', () => {
     expect(parseMeasureToNumber('')).toBe(1)
   })
 
-  it('parses whole numbers', () => {
+  it('converts ounces (base unit)', () => {
     expect(parseMeasureToNumber('2 oz')).toBe(2)
-    expect(parseMeasureToNumber('3 cups')).toBe(3)
-  })
-
-  it('parses decimal numbers', () => {
     expect(parseMeasureToNumber('1.5 oz')).toBe(1.5)
-    expect(parseMeasureToNumber('0.5 tsp')).toBe(0.5)
-  })
-
-  it('parses simple fractions', () => {
     expect(parseMeasureToNumber('1/2 oz')).toBe(0.5)
-    expect(parseMeasureToNumber('1/4 cup')).toBe(0.25)
-    expect(parseMeasureToNumber('3/4 oz')).toBe(0.75)
+    expect(parseMeasureToNumber('1 1/2 oz')).toBe(1.5)
   })
 
-  it('parses mixed fractions', () => {
-    expect(parseMeasureToNumber('1 1/2 oz')).toBe(1.5)
-    expect(parseMeasureToNumber('2 1/4 cups')).toBe(2.25)
+  it('converts cups to ounces', () => {
+    expect(parseMeasureToNumber('1 cup')).toBe(8)
+    expect(parseMeasureToNumber('2 cups')).toBe(16)
+    expect(parseMeasureToNumber('1/4 cup')).toBe(2)
+  })
+
+  it('converts teaspoons to ounces', () => {
+    expect(parseMeasureToNumber('1 tsp')).toBeCloseTo(0.167, 2)
+    expect(parseMeasureToNumber('3 tsp')).toBeCloseTo(0.501, 2)
+  })
+
+  it('converts tablespoons to ounces', () => {
+    expect(parseMeasureToNumber('1 tbsp')).toBe(0.5)
+    expect(parseMeasureToNumber('2 tbsp')).toBe(1)
+  })
+
+  it('converts shots to ounces', () => {
+    expect(parseMeasureToNumber('1 shot')).toBe(1.5)
+    expect(parseMeasureToNumber('2 shots')).toBe(3)
+  })
+
+  it('converts cl to ounces', () => {
+    expect(parseMeasureToNumber('3 cl')).toBeCloseTo(1.014, 2)
+  })
+
+  it('converts ml to ounces', () => {
+    expect(parseMeasureToNumber('30 ml')).toBeCloseTo(1.014, 2)
   })
 
   it('handles dash measurements', () => {
-    expect(parseMeasureToNumber('dash')).toBe(0.5)
-    expect(parseMeasureToNumber('2 dashes')).toBe(2)
+    expect(parseMeasureToNumber('1 dash')).toBeCloseTo(0.03, 2)
+    expect(parseMeasureToNumber('2 dashes')).toBeCloseTo(0.06, 2)
   })
 
   it('handles splash measurements', () => {
-    expect(parseMeasureToNumber('splash')).toBe(0.5)
+    expect(parseMeasureToNumber('1 splash')).toBe(0.25)
   })
 
-  it('handles twist measurements', () => {
-    expect(parseMeasureToNumber('twist')).toBe(0.25)
+  it('handles garnish measurements', () => {
+    expect(parseMeasureToNumber('1 twist')).toBe(0.1)
+    expect(parseMeasureToNumber('1 slice')).toBe(0.2)
+    expect(parseMeasureToNumber('1 wedge')).toBe(0.3)
+    expect(parseMeasureToNumber('2 slices')).toBe(0.4)
   })
 
-  it('handles slice measurements', () => {
-    expect(parseMeasureToNumber('slice')).toBe(0.5)
-  })
-
-  it('handles wedge measurements', () => {
-    expect(parseMeasureToNumber('wedge')).toBe(0.5)
-  })
-
-  it('returns 1 for unrecognized measurements', () => {
+  it('returns numeric value for unrecognized units', () => {
+    expect(parseMeasureToNumber('2')).toBe(2)
     expect(parseMeasureToNumber('to taste')).toBe(1)
-    expect(parseMeasureToNumber('some')).toBe(1)
   })
 
   it('is case insensitive', () => {
-    expect(parseMeasureToNumber('DASH')).toBe(0.5)
-    expect(parseMeasureToNumber('Splash')).toBe(0.5)
+    expect(parseMeasureToNumber('1 DASH')).toBeCloseTo(0.03, 2)
+    expect(parseMeasureToNumber('1 Splash')).toBe(0.25)
+    expect(parseMeasureToNumber('2 OZ')).toBe(2)
   })
 })
 
