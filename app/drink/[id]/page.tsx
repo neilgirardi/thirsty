@@ -1,15 +1,17 @@
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import Head from 'next/head'
+'use client'
+
+import { useState, useEffect, use } from 'react'
 import Link from 'next/link'
 import { IngredientList } from 'components/IngredientList'
 import { DrinkDetail, parseIngredients } from 'utils/drinks'
 import styles from 'styles/DrinkDetail.module.css'
 
-export default function DrinkDetailPage() {
-  const router = useRouter()
-  const { id } = router.query
-
+export default function DrinkDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = use(params)
   const [drink, setDrink] = useState<DrinkDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -69,43 +71,35 @@ export default function DrinkDetailPage() {
   const ingredients = parseIngredients(drink)
 
   return (
-    <>
-      <Head>
-        <title>{drink.strDrink} - Thirsty</title>
-        <meta name="description" content={`Learn how to make a ${drink.strDrink}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <Link href="/" className={styles.back}>
+          &lt; Thirsty
+        </Link>
+        <span className={styles.headerTitle}>{drink.strDrink}</span>
+        <span className={styles.spacer}></span>
+      </header>
 
-      <div className={styles.page}>
-        <header className={styles.header}>
-          <Link href="/" className={styles.back}>
-            &lt; Thirsty
-          </Link>
-          <span className={styles.headerTitle}>{drink.strDrink}</span>
-          <span className={styles.spacer}></span>
-        </header>
+      <main className={styles.content}>
+        <div className={styles.imageContainer}>
+          <img
+            src={drink.strDrinkThumb}
+            alt={drink.strDrink}
+            className={styles.image}
+          />
+        </div>
 
-        <main className={styles.content}>
-          <div className={styles.imageContainer}>
-            <img
-              src={drink.strDrinkThumb}
-              alt={drink.strDrink}
-              className={styles.image}
-            />
-          </div>
+        <h1 className={styles.name}>{drink.strDrink}</h1>
 
-          <h1 className={styles.name}>{drink.strDrink}</h1>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Ingredients:</h2>
+          <IngredientList ingredients={ingredients} />
+        </section>
 
-          <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Ingredients:</h2>
-            <IngredientList ingredients={ingredients} />
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.instructions}>{drink.strInstructions}</p>
-          </section>
-        </main>
-      </div>
-    </>
+        <section className={styles.section}>
+          <p className={styles.instructions}>{drink.strInstructions}</p>
+        </section>
+      </main>
+    </div>
   )
 }

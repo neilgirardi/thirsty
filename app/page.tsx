@@ -1,5 +1,6 @@
+'use client'
+
 import { useState, useEffect, useCallback } from 'react'
-import Head from 'next/head'
 import { SearchBox } from 'components/SearchBox'
 import { DrinkListItem } from 'components/DrinkListItem'
 import styles from 'styles/Home.module.css'
@@ -58,50 +59,41 @@ export default function Home() {
   }
 
   return (
-    <>
-      <Head>
-        <title>Thirsty - Find Your Perfect Drink</title>
-        <meta name="description" content="Search and discover cocktail recipes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Thirsty</h1>
+      </header>
 
-      <div className={styles.page}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Thirsty</h1>
-        </header>
+      <SearchBox
+        value={searchTerm}
+        onChange={setSearchTerm}
+        onClear={clearSearch}
+      />
 
-        <SearchBox
-          value={searchTerm}
-          onChange={setSearchTerm}
-          onClear={clearSearch}
-        />
+      <main className={styles.content}>
+        {loading && (
+          <div className={styles.loading}>Searching...</div>
+        )}
 
-        <main className={styles.content}>
-          {loading && (
-            <div className={styles.loading}>Searching...</div>
-          )}
+        {!loading && hasSearched && drinks.length === 0 && (
+          <div className={styles.empty}>
+            <p>No drinks found</p>
+          </div>
+        )}
 
-          {!loading && hasSearched && drinks.length === 0 && (
-            <div className={styles.empty}>
-              <p>No drinks found</p>
-            </div>
-          )}
-
-          {!loading && drinks.length > 0 && (
-            <ul className={styles.list}>
-              {drinks.map((drink) => (
-                <DrinkListItem
-                  key={drink.idDrink}
-                  id={drink.idDrink}
-                  name={drink.strDrink}
-                  thumbnail={drink.strDrinkThumb}
-                />
-              ))}
-            </ul>
-          )}
-        </main>
-      </div>
-    </>
+        {!loading && drinks.length > 0 && (
+          <ul className={styles.list}>
+            {drinks.map((drink) => (
+              <DrinkListItem
+                key={drink.idDrink}
+                id={drink.idDrink}
+                name={drink.strDrink}
+                thumbnail={drink.strDrinkThumb}
+              />
+            ))}
+          </ul>
+        )}
+      </main>
+    </div>
   )
 }
