@@ -42,35 +42,98 @@ export function parseIngredients(drink: DrinkDetail): Ingredient[] {
   return ingredients
 }
 
-export function parseMeasureToNumber(measure: string): number {
-  if (!measure) return 1
+// Conversion factors to ounces (standard unit)
+const UNIT_TO_OZ: Record<string, number> = {
+  oz: 1,
+  ounce: 1,
+  ounces: 1,
+  shot: 1.5,
+  shots: 1.5,
+  jigger: 1.5,
+  cl: 0.338,
+  ml: 0.0338,
+  tsp: 0.167,
+  teaspoon: 0.167,
+  teaspoons: 0.167,
+  tbsp: 0.5,
+  tablespoon: 0.5,
+  tablespoons: 0.5,
+  cup: 8,
+  cups: 8,
+  pint: 16,
+  pints: 16,
+  dash: 0.03,
+  dashes: 0.03,
+  splash: 0.25,
+  splashes: 0.25,
+  drop: 0.0017,
+  drops: 0.0017,
+  part: 1,
+  parts: 1,
+  glass: 8,
+  can: 12,
+  bottle: 12,
+}
 
-  const cleaned = measure.toLowerCase().trim()
+// Small garnish amounts in ounces
+const GARNISH_OZ: Record<string, number> = {
+  twist: 0.1,
+  twists: 0.1,
+  slice: 0.2,
+  slices: 0.2,
+  wedge: 0.3,
+  wedges: 0.3,
+  sprig: 0.1,
+  sprigs: 0.1,
+  leaf: 0.05,
+  leaves: 0.05,
+  piece: 0.2,
+  pieces: 0.2,
+  cube: 0.2,
+  cubes: 0.2,
+  scoop: 4,
+  scoops: 4,
+}
 
-  const fractionMatch = cleaned.match(/(\d+)?\s*(\d+)\/(\d+)/)
+function parseNumericValue(str: string): number {
+  // Match fractions like "1 1/2" or "1/2"
+  const fractionMatch = str.match(/(\d+)?\s*(\d+)\/(\d+)/)
   if (fractionMatch) {
-    // (\d+)? - optional whole number (e.g., the "1" in "1 1/2")
     const whole = fractionMatch[1] ? parseInt(fractionMatch[1]) : 0
-
-    // \s* - optional whitespace
-
-    // (\d+)\/(\d+) - numerator/denominator
     const numerator = parseInt(fractionMatch[2])
     const denominator = parseInt(fractionMatch[3])
-
-    return whole + (numerator / denominator)
+    return whole + numerator / denominator
   }
 
-  const numberMatch = cleaned.match(/[\d.]+/)
+  // Match decimal numbers
+  const numberMatch = str.match(/[\d.]+/)
   if (numberMatch) {
     return parseFloat(numberMatch[0])
   }
 
-  if (cleaned.includes('dash')) return 0.5
-  if (cleaned.includes('splash')) return 0.5
-  if (cleaned.includes('twist')) return 0.25
-  if (cleaned.includes('slice')) return 0.5
-  if (cleaned.includes('wedge')) return 0.5
-
   return 1
+}
+
+export function parseMeasureToNumber(measure: string): number {
+  if (!measure) return 1
+
+  const cleaned = measure.toLowerCase().trim()
+  const numericValue = parseNumericValue(cleaned)
+
+  // Check for unit conversions
+  for (const [unit, ozFactor] of Object.entries(UNIT_TO_OZ)) {
+    if (cleaned.includes(unit)) {
+      return numericValue * ozFactor
+    }
+  }
+
+  // Check for garnishes
+  for (const [garnish, ozValue] of Object.entries(GARNISH_OZ)) {
+    if (cleaned.includes(garnish)) {
+      return numericValue * ozValue
+    }
+  }
+
+  // Default: treat as ounces
+  return numericValue
 }
