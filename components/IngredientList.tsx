@@ -1,3 +1,5 @@
+'use client'
+
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { Ingredient, CHART_COLORS, parseMeasureToNumber } from 'utils/drinks'
 import styles from './IngredientList.module.css'
