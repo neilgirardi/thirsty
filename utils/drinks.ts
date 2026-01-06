@@ -115,7 +115,8 @@ function parseNumericValue(str: string): number {
 }
 
 export function parseMeasureToNumber(measure: string): number {
-  if (!measure) return 1
+  // if there is no measure, don't put in in the pie chart
+  if (!measure) return 0
 
   const cleaned = measure.toLowerCase().trim()
   const numericValue = parseNumericValue(cleaned)
