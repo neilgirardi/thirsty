@@ -135,6 +135,6 @@ export function parseMeasureToNumber(measure: string): number {
     }
   }
 
-  // Default: treat as ounces
-  return numericValue
+  // no supported unit. For example "1 olive" (this should also be omitted from pie chart)
+  return 0
 }
